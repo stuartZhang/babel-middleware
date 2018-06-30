@@ -4,6 +4,8 @@ const crypto = require('crypto');
 const babel = require('babel-core');
 const micromatch = require('micromatch');
 const {promisify} = require('util');
+const {loggerBuilder} = require('./utils');
+
 const transformFile = promisify(babel.transformFile);
 
 module.exports = function middlewareBuilder(options = {}) {
@@ -11,12 +13,6 @@ module.exports = function middlewareBuilder(options = {}) {
   async function fileLastModifiedHash(path) {
     const mtime = (await fs.lstat(path)).mtime.getTime();
     return crypto.createHash('md5').update(`${mtime}-${path}`).digest('hex');
-  }
-
-  function log(...args) {
-    if (debug) {
-      console.log(...args); // eslint-disable-line no-console
-    }
   }
 
   function handleError(res, error) {
@@ -57,6 +53,7 @@ module.exports = function middlewareBuilder(options = {}) {
   ]);
 
   return async function (req, res) { // eslint-disable-line complexity
+    const logDebug = loggerBuilder.debug('express');
     const src = path.resolve(`${srcPath}/${req.path}`);
     const sendFile = promisify(res.sendFile).bind(res);
     const [
@@ -70,7 +67,7 @@ module.exports = function middlewareBuilder(options = {}) {
 
     if (exclude.length) {
       if (micromatch.any(req.path.replace(/^\/+|\/+$/g, ''), exclude)) {
-        log('Excluded: %s (%s)', req.path, exclude);
+        logDebug('Excluded: %s (%s)', req.path, exclude);
         res.append('X-Babel-Cache', false);
         try {
           await sendFile(src, {});
@@ -81,7 +78,7 @@ module.exports = function middlewareBuilder(options = {}) {
       }
     }
 
-    log('Preparing: %s (%s)', src, hash);
+    logDebug('Preparing: %s (%s)', src, hash);
 
     res.append('X-Babel-Cache', true);
     res.append('X-Babel-Cache-Hash', hash);
@@ -119,11 +116,11 @@ module.exports = function middlewareBuilder(options = {}) {
       if (!cacheMiss) {
         res.append('X-Babel-Cache-Hit', true);
         if (isMemoryCache) {
-          log('Serving (cached): %s', src);
+          logDebug('Serving (cached): %s', src);
           res.write(cacheMap[hash]);
           res.end();
         } else {
-          log('Serving (cached): %s', hashPath);
+          logDebug('Serving (cached): %s', hashPath);
           try {
             await sendFile(hashPath, {});
           } catch (err) {
@@ -167,7 +164,7 @@ module.exports = function middlewareBuilder(options = {}) {
         Reflect.deleteProperty(hashMap, src);
       }
     }
-    log('Serving (uncached): %s', src);
+    logDebug('Serving (uncached): %s', src);
     res.write(code);
     res.end();
   };
