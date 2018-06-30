@@ -1,4 +1,4 @@
-babel-middleware
+babel-middleware-stzhang
 ================
 
 Simple Express/Connect middleware to automatically transpile JavaScript files
@@ -9,7 +9,7 @@ Usage
 =====
 ```javascript
 var express = require('express');
-var babel = require('babel-middleware');
+var babel = require('babel-middleware-stzhang');
 var app = express();
 
 app.use('/js/', babel({

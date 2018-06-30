@@ -1,0 +1,7 @@
+{
+    "files.trimTrailingWhitespace": true,
+    "editor.wordWrap": "on",
+    "editor.tabSize": 2,
+    "editor.tabCompletion": true,
+    "editor.detectIndentation": false
+  }

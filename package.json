@@ -1,6 +1,6 @@
 {
-  "name": "babel-middleware",
-  "version": "0.3.4",
+  "name": "babel-middleware-stzhang",
+  "version": "0.0.1",
   "description": "Express/Connect middleware to pre-process requested JS files through Babel",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mralex/babel-middleware"
+    "url": "https://github.com/stuartZhang/babel-middleware.git"
   },
   "keywords": [
     "babel",
@@ -17,14 +17,19 @@
     "express",
     "middleware"
   ],
-  "author": "Alex Roberts <alex@redprocess.com>",
-  "license": "Apache 2.0",
+  "author": "Stuart Zhang <stuartpage@qq.com>",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mralex/babel-middleware/issues"
+    "url": "https://github.com/stuartZhang/babel-middleware/issues"
   },
-  "homepage": "https://github.com/mralex/babel-middleware",
+  "homepage": "https://github.com/stuartZhang/babel-middleware",
   "dependencies": {
-    "babel-core": "^5.8.34",
+    "babel-core": "^6.26.3",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "crypto": "^1.0.1",
+    "fs-extra": "^6.0.1",
     "micromatch": "^2.3.5"
   },
   "devDependencies": {
@@ -34,5 +39,8 @@
     "rimraf": "^2.4.4",
     "sleep": "^3.0.0",
     "supertest": "^1.1.0"
+  },
+  "engines": {
+    "node": ">= 8.9.1"
   }
 }
