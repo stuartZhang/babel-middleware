@@ -1,6 +1,6 @@
 {
   "name": "babel-middleware-stzhang",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Express/Connect middleware to pre-process requested JS files through Babel",
   "main": "index.js",
   "scripts": {
@@ -25,9 +25,6 @@
   "homepage": "https://github.com/stuartZhang/babel-middleware",
   "dependencies": {
     "babel-core": "^6.26.3",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-0": "^6.24.1",
     "crypto": "^1.0.1",
     "debug": "^2.6.9",
     "fs-extra": "^6.0.1",
