@@ -24,6 +24,7 @@ module.exports = function middlewareBuilder(options = {}) {
         var output = ${JSON.stringify(error)};
         console.error("${errOutput}", output.codeFrame);
       `);
+      console.error('babel-middleware', errOutput);
     } else {
       res.status(500).send(error);
     }

@@ -1,6 +1,6 @@
 {
   "name": "babel-middleware-stzhang",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Express/Connect middleware to pre-process requested JS files through Babel",
   "main": "index.js",
   "scripts": {
